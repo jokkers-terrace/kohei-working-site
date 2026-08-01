@@ -1,40 +1,7 @@
-# 近藤晃平 ｜ WORKING SITE
+# KOHEI KONDO ｜ ART PROJECT
 
-公開URL: https://jokkers-terrace.github.io/kohei-working-site/
+公式サイトは以下へ移行しました。
 
-## 構成
+https://kohei-kondo-working-site.kohei-sun0127.chatgpt.site/
 
-`index.html` の1枚だけ。CSS・JavaScript も全部この中に入っています。
-外部ファイルの読み込みはありません（Xの埋め込みスクリプトのみ例外）。
-
-| 直したいもの | 場所 |
-| --- | --- |
-| 文章・セクション | `<main>` の中 |
-| Xに載せる投稿 | いちばん下の `POSTS` 配列（投稿URLを並べるだけ） |
-| 色・書体・余白 | 先頭の `:root` の変数 |
-| 右端の目次 | `<nav class="rail">` |
-
-セクションは 序（冒頭）／領域／行き先／投稿／連絡 の5つ。
-アニメーションは使っていません。
-
-## 公開のしかた
-
-`main` ブランチに push すると、GitHub Pages が自動で反映します（1〜3分）。
-
-```bash
-git add -A && git commit -m "更新" && git push
-```
-
-## 編集するときの注意
-
-- **ChatGPT・Claude・手元、どこから直す場合も、始める前に必ず `git pull` すること。**
-  複数の場所で同じ `index.html` を書き換えると、あとから push した側が衝突します。
-- ChatGPTで書き換えた場合は、出てきたHTMLで `index.html` を丸ごと置き換えてから push します。
-
-## Xの埋め込みについて（変更前に読む）
-
-- プロフィールのタイムライン埋め込み（`twitter-timeline`）は**使えません**。X側が中身を返さず、空欄になります。
-- 使えるのは**単体ポストの埋め込み**だけです。だから `POSTS` に投稿URLを1本ずつ書く形にしています。
-- **動画付きの投稿はXが埋め込みを返さない**ことがあります（例: `/status/1874011863224377760`）。
-  その場合カードは自動で消えるので、レイアウトは崩れません。
-- 埋め込みの表示には https の公開URLが必要です。手元でファイルを直接開く（`file://`）と、投稿は出ません。
+このリポジトリの GitHub Pages は終了しています。
