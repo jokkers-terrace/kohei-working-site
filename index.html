@@ -428,29 +428,26 @@ const POSTS = [
   const s = document.createElement('script');
   s.src = 'https://platform.twitter.com/widgets.js';
   s.async = true; s.charset = 'utf-8';
+  function giveUp(){ document.getElementById('x-fallback').hidden = false; }
+
   s.onload = function(){
-    POSTS.forEach(function(url){
+    /* createTweet は描画できなかったとき undefined を返す。
+       タイマーではなくこの結果でカードの生死を判定する */
+    const jobs = POSTS.map(function(url){
       const id = (url.match(/status\/(\d+)/) || [])[1];
-      if (!id) return;
+      if (!id) return Promise.resolve();
       const slot = document.createElement('div');
       box.appendChild(slot);
-      window.twttr.widgets.createTweet(id, slot, {
+      return window.twttr.widgets.createTweet(id, slot, {
         dnt: true, lang: 'ja', align: 'left', theme: dark ? 'dark' : 'light'
-      });
+      }).then(function(el){ if (!el) slot.remove(); });
+    });
+    Promise.all(jobs).then(function(){
+      if (!box.children.length) giveUp();
     });
   };
+  s.onerror = giveUp;
   document.head.appendChild(s);
-
-  /* 出せなかったカードは畳む。全滅なら逃げ道を出す */
-  setTimeout(function(){
-    Array.prototype.forEach.call(box.children, function(slot){
-      const f = slot.querySelector('iframe');
-      if (!f || f.offsetHeight < 60) slot.hidden = true;
-    });
-    if (!box.querySelector('div:not([hidden]) iframe')) {
-      document.getElementById('x-fallback').hidden = false;
-    }
-  }, 9000);
 })();
 
 /* ---------- 現れ方：スクロールで立ち上がる ---------- */
