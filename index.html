@@ -3,379 +3,196 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>近藤晃平 ｜ WORKING SITE</title>
-<meta name="description" content="近藤晃平のワーキングサイト。くらしの課題を解く仕事と、日本の魅力を世界へ届けるための場所。">
-<!--
-  ============================================================
-  このサイトは index.html 1枚だけで動きます（外部ファイルなし）
-  ・文章を直すとき  … 下の <main> の中を編集
-  ・Xの投稿を直すとき … いちばん下の POSTS 配列を編集
-  ・色や文字を直すとき … すぐ下の :root の変数を編集
-  ※ アニメーションは使っていません
-  ============================================================
--->
+<meta name="description" content="KOHEI KONDO ART PROJECT。京都から、書とことばで日本の美しさを世界へ届ける。">
+<meta name="theme-color" content="#0b0c0d">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://jokkers-terrace.github.io/kohei-working-site/">
+<meta property="og:title" content="KOHEI KONDO ｜ Words from Kyoto.">
+<meta property="og:description" content="京都から、書とことばで日本の美しさを世界へ届ける。">
+<meta property="og:image" content="https://jokkers-terrace.github.io/kohei-working-site/assets/og.png">
+<meta property="og:image:alt" content="KOHEI KONDO — Words from Kyoto.">
+<meta name="twitter:card" content="summary_large_image">
+<title>KOHEI KONDO ｜ ART PROJECT</title>
 <style>
-/* ============================================================
-   墨（sumi）と群青（gunjo）
-   ground : 白磁 / 墨    ink : 濃墨 / 胡粉
-   accent : 群青（1色に賭ける）   accent-2 : 朱（点のみ）
-   ============================================================ */
 :root{
-  --ground:#E9EAEE; --ground-2:#F4F5F7; --panel:rgba(255,255,255,.55);
-  --ink:#11141B; --ink-2:#4B5261; --ink-3:#828A99;
-  --line:rgba(17,20,27,.13); --line-2:rgba(17,20,27,.06);
-  --accent:#1B3FC4; --accent-soft:rgba(27,63,196,.10);
-  --accent-2:#C23E27;
-
-  --display:"Hiragino Mincho ProN","Yu Mincho",YuMincho,"Songti SC",serif;
-  --body:"Hiragino Sans","Hiragino Kaku Gothic ProN","Yu Gothic",system-ui,sans-serif;
+  --night:#0b0c0d; --night-soft:#111315; --paper:#f1eee8; --mist:#bdbab1;
+  --faint:#777873; --line:rgba(241,238,232,.18); --line-soft:rgba(241,238,232,.09);
+  --vermilion:#d66e59; --gold:#c9aa71; --serif:"Hiragino Mincho ProN","Yu Mincho",YuMincho,serif;
+  --sans:"Hiragino Sans","Hiragino Kaku Gothic ProN","Yu Gothic",system-ui,sans-serif;
   --mono:ui-monospace,"SF Mono",Menlo,monospace;
-
-  --rail:82px; --measure:64ch;
-  --s1:.5rem; --s2:1rem; --s3:1.75rem; --s4:3rem; --s5:5.5rem; --s6:9rem;
 }
-@media (prefers-color-scheme:dark){
-  :root{
-    --ground:#0B0D12; --ground-2:#12151D; --panel:rgba(255,255,255,.04);
-    --ink:#E6E8ED; --ink-2:#98A0AF; --ink-3:#6B7382;
-    --line:rgba(230,232,237,.15); --line-2:rgba(230,232,237,.07);
-    --accent:#7B95FF; --accent-soft:rgba(123,149,255,.12);
-    --accent-2:#E2634A;
-  }
-}
-:root[data-theme="light"]{
-  --ground:#E9EAEE; --ground-2:#F4F5F7; --panel:rgba(255,255,255,.55);
-  --ink:#11141B; --ink-2:#4B5261; --ink-3:#828A99;
-  --line:rgba(17,20,27,.13); --line-2:rgba(17,20,27,.06);
-  --accent:#1B3FC4; --accent-soft:rgba(27,63,196,.10); --accent-2:#C23E27;
-}
-:root[data-theme="dark"]{
-  --ground:#0B0D12; --ground-2:#12151D; --panel:rgba(255,255,255,.04);
-  --ink:#E6E8ED; --ink-2:#98A0AF; --ink-3:#6B7382;
-  --line:rgba(230,232,237,.15); --line-2:rgba(230,232,237,.07);
-  --accent:#7B95FF; --accent-soft:rgba(123,149,255,.12); --accent-2:#E2634A;
-}
-
 *{box-sizing:border-box}
-html{-webkit-text-size-adjust:100%}
-body{
-  margin:0; background:var(--ground); color:var(--ink);
-  font-family:var(--body); font-size:16px; line-height:1.85;
-  letter-spacing:.02em; overflow-x:hidden;
-}
-a{color:inherit}
-::selection{background:var(--accent); color:#fff}
-:focus-visible{outline:2px solid var(--accent); outline-offset:3px}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--night);color:var(--paper);font-family:var(--sans);line-height:1.8;letter-spacing:.035em;overflow-x:hidden}
+a{color:inherit} img{display:block;max-width:100%} ::selection{background:var(--vermilion);color:var(--paper)}
+:focus-visible{outline:2px solid var(--vermilion);outline-offset:4px}
+.shell{width:min(1160px,calc(100% - 48px));margin:auto}
+.eyebrow{margin:0 0 18px;font:10px/1.4 var(--mono);letter-spacing:.2em;color:var(--vermilion)}
+.section-title{font:400 clamp(2rem,4vw,4.2rem)/1.25 var(--serif);letter-spacing:.04em;margin:0;max-width:13ch}
+.lede{margin:24px 0 0;color:var(--mist);font-size:15px;max-width:42em}
 
-/* ---------- 縦書きの目次（右の柱） ---------- */
-.rail{
-  position:fixed; top:0; right:0; bottom:0; width:var(--rail); z-index:3;
-  display:flex; flex-direction:row; align-items:center; justify-content:center; gap:var(--s3);
-  writing-mode:vertical-rl; border-left:1px solid var(--line-2);
-  background:linear-gradient(to left,var(--ground) 40%,transparent);
-}
-.rail a{
-  font-family:var(--display); font-size:13px; letter-spacing:.42em;
-  text-decoration:none; color:var(--ink-3);
-}
-.rail a:hover,.rail a[aria-current="true"]{color:var(--ink)}
-.rail a[aria-current="true"]::after{
-  content:""; display:block; margin:6px 0 0 0; width:1px; height:18px; background:var(--accent);
-}
-.rail .mark{font-family:var(--mono); font-size:10px; letter-spacing:.3em; color:var(--ink-3)}
+/* Header */
+.site-head{height:74px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--line-soft)}
+.brand{font:600 12px/1 var(--mono);letter-spacing:.22em;text-decoration:none}
+.store{font:10px/1 var(--mono);letter-spacing:.16em;text-decoration:none;color:var(--mist);transition:color .2s}
+.store:hover{color:var(--vermilion)}
 
-/* ---------- 版面 ---------- */
-main{position:relative; z-index:1; padding-right:var(--rail)}
-.wrap{max-width:calc(var(--measure) + 12rem); margin:0 auto; padding:0 var(--s4)}
-section{padding:var(--s6) 0; border-top:1px solid var(--line-2)}
-section:first-of-type{border-top:0}
+/* Hero */
+.hero{position:relative;min-height:calc(100svh - 74px);padding:clamp(52px,8vw,110px) 0 60px;display:grid;align-items:center;isolation:isolate}
+.hero-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(330px,.88fr);gap:clamp(32px,7vw,106px);align-items:center}
+.hero h1{font:400 clamp(3.1rem,7vw,7.3rem)/1.05 var(--serif);letter-spacing:.03em;margin:0;max-width:8ch}
+.hero h1 em{font-style:normal;color:var(--vermilion)}
+.hero-copy{margin:30px 0 0;max-width:27em;color:var(--mist);font-size:15px}
+.actions{display:flex;gap:14px;flex-wrap:wrap;margin-top:34px}
+.button{display:inline-flex;align-items:center;gap:12px;padding:13px 16px;border:1px solid var(--line);font:11px/1 var(--mono);letter-spacing:.11em;text-decoration:none;transition:background .2s,border-color .2s}
+.button:hover{background:var(--paper);border-color:var(--paper);color:var(--night)}
+.button.alt{border-color:transparent;color:var(--mist);padding-left:0}.button.alt:hover{background:none;color:var(--vermilion)}
+.hero-art{position:relative;justify-self:end;width:min(100%,480px)}
+.hero-art img{width:100%;aspect-ratio:4/5;object-fit:cover;filter:brightness(.78) contrast(1.08)}
+.hero-art::before{content:"";position:absolute;z-index:1;inset:-13px 13px 13px -13px;border:1px solid rgba(214,110,89,.45);pointer-events:none}
+.art-caption{position:absolute;z-index:2;left:18px;bottom:15px;margin:0;font:10px/1.45 var(--mono);letter-spacing:.15em;text-shadow:0 1px 15px #000}
+.art-caption strong{display:block;font-weight:500;color:var(--vermilion)}
+.scroll-note{position:absolute;bottom:22px;left:0;font:9px/1 var(--mono);letter-spacing:.18em;color:var(--faint)}
 
-.eyebrow{
-  font-family:var(--mono); font-size:11px; letter-spacing:.34em; text-transform:uppercase;
-  color:var(--ink-3); display:flex; align-items:center; gap:var(--s2); margin:0 0 var(--s3);
-}
-.eyebrow::after{content:""; flex:1; height:1px; background:var(--line)}
+/* Work */
+.works{padding:130px 0;border-top:1px solid var(--line-soft)}
+.works-heading{display:flex;align-items:end;justify-content:space-between;gap:24px;margin-bottom:44px}.works-heading .lede{margin:0;max-width:28em}
+.work-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line-soft);border:1px solid var(--line-soft)}
+.work{position:relative;background:var(--night);min-height:400px;overflow:hidden;text-decoration:none;display:flex;flex-direction:column;justify-content:end;padding:21px;isolation:isolate}
+.work img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.66;filter:saturate(.78) contrast(1.05);transition:transform .7s ease,opacity .35s}
+.work::after{content:"";position:absolute;inset:0;background:linear-gradient(transparent 28%,rgba(0,0,0,.86));z-index:-1}
+.work:hover img{transform:scale(1.055);opacity:.86}.work>*{position:relative;z-index:1}.work-no{font:10px/1 var(--mono);letter-spacing:.12em;color:var(--gold);margin-bottom:auto}.work-type{font:9px/1 var(--mono);letter-spacing:.13em;color:var(--mist);margin:0 0 8px}.work h3{margin:0;font:400 1.65rem/1.25 var(--serif);letter-spacing:.06em}.work small{margin-top:12px;font:9px/1.3 var(--mono);letter-spacing:.13em;color:var(--mist)}
 
-h2{
-  font-family:var(--display); font-weight:400; font-size:clamp(1.6rem,3.2vw,2.3rem);
-  line-height:1.5; letter-spacing:.06em; margin:0 0 var(--s3); text-wrap:balance;
-}
-h3{font-family:var(--display); font-weight:400; font-size:1.12rem; letter-spacing:.06em; margin:0}
-p{margin:0 0 var(--s2); max-width:var(--measure); color:var(--ink-2)}
-p strong{color:var(--ink); font-weight:600}
+/* Project introduction — written as an artist project, not a personal diary */
+.project{padding:120px 0;border-top:1px solid var(--line-soft)}
+.project-grid{display:grid;grid-template-columns:.7fr 1.3fr;gap:clamp(40px,10vw,150px);align-items:start}.project-mark{font:10px/1.5 var(--mono);letter-spacing:.17em;color:var(--vermilion);margin:0}.project-copy h2{margin:0;font:400 clamp(2rem,4vw,4rem)/1.32 var(--serif);letter-spacing:.05em;max-width:14ch}.project-copy p{max-width:45em;color:var(--mist);font-size:15px;margin:26px 0 0}.project-meta{display:flex;gap:17px;flex-wrap:wrap;margin-top:30px;font:9px/1.4 var(--mono);letter-spacing:.14em;color:var(--faint)}.project-meta span{border-top:1px solid var(--line);padding-top:9px}
 
-/* ---------- 冒頭：名前は小さく、言葉を前に ---------- */
-.hero{min-height:74svh; display:flex; flex-direction:column; justify-content:center; padding:var(--s5) 0 var(--s4)}
-.masthead{
-  display:flex; align-items:baseline; gap:var(--s2); flex-wrap:wrap;
-  padding-bottom:var(--s1); border-bottom:1px solid var(--line);
-  margin:0 0 var(--s4); max-width:var(--measure);
-}
-.name{
-  font-family:var(--display); font-weight:400; margin:0;
-  font-size:clamp(1.05rem,1.5vw,1.2rem); line-height:1.4; letter-spacing:.22em;
-}
-.romaji{
-  font-family:var(--mono); font-size:10px; letter-spacing:.34em; color:var(--ink-3); margin:0;
-}
-.hero .kicker{
-  font-family:var(--mono); font-size:10px; letter-spacing:.34em; color:var(--ink-3);
-  margin:0 0 0 auto;
-}
-.thesis{
-  font-family:var(--display); font-size:clamp(1.5rem,3.6vw,2.5rem); line-height:1.85;
-  letter-spacing:.07em; color:var(--ink); max-width:26ch; margin:0 0 var(--s4);
-  text-wrap:balance;
-}
-.thesis em{font-style:normal; color:var(--accent)}
+/* A large statement */
+.statement{padding:145px 0;position:relative;background:linear-gradient(112deg,#12171a,#0b0c0d 66%)}
+.statement::after{content:"喜";position:absolute;right:-.08em;top:0;color:rgba(241,238,232,.025);font:clamp(18rem,45vw,44rem)/1 var(--serif);pointer-events:none}
+.statement-grid{position:relative;display:grid;grid-template-columns:.9fr 1.1fr;gap:clamp(42px,10vw,150px);align-items:center}.statement-art{position:relative}.statement-art img{width:min(100%,390px);aspect-ratio:3/4;object-fit:cover;filter:grayscale(.15) contrast(1.08)}
+.statement-art::after{content:"喜氣 / KIKI";position:absolute;left:-11px;bottom:-26px;color:var(--vermilion);font:10px/1 var(--mono);letter-spacing:.19em;writing-mode:vertical-rl}.statement q{quotes:none}.statement q::before,.statement q::after{content:none}.statement blockquote{font:400 clamp(2.2rem,4.6vw,4.8rem)/1.28 var(--serif);letter-spacing:.06em;margin:0}.statement blockquote em{font-style:normal;color:var(--vermilion)}.statement .lede{margin-top:29px}
 
-.status{
-  display:flex; flex-wrap:wrap; gap:var(--s1) var(--s3); align-items:center;
-  font-family:var(--mono); font-size:11px; letter-spacing:.14em; color:var(--ink-3);
-}
-.status b{color:var(--ink-2); font-weight:500}
-.live{display:inline-flex; align-items:center; gap:6px; color:var(--ink-2)}
-.live i{width:6px; height:6px; border-radius:50%; background:var(--accent-2)}
+/* Notes / X */
+.journal{padding:135px 0}.journal-top{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:end;margin-bottom:46px}.journal-top .lede{margin:0}.x-layout{display:grid;grid-template-columns:minmax(0,1fr) 260px;gap:38px;align-items:start}.posts{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}.posts .twitter-tweet{margin:0!important;min-width:0!important}.x-aside{padding:22px;border-left:1px solid var(--line);color:var(--mist)}.x-aside p{font:13px/1.9 var(--sans);margin:0 0 20px}.text-link{font:10px/1.4 var(--mono);letter-spacing:.13em;color:var(--paper);text-decoration:none;border-bottom:1px solid var(--vermilion);padding-bottom:5px}.text-link:hover{color:var(--vermilion)}.fallback{color:var(--mist);font-size:13px;margin:0}.fallback a{color:var(--paper)}
 
-/* ---------- 領域 ---------- */
-.fields{display:grid; gap:1px; background:var(--line-2); border:1px solid var(--line-2)}
-.field{background:var(--ground); padding:var(--s3); display:grid; gap:var(--s1)}
-.field .no{font-family:var(--mono); font-size:10px; letter-spacing:.2em; color:var(--ink-3)}
-.field p{margin:0; font-size:14.5px; line-height:1.9}
-.field:hover{background:var(--ground-2)}
-@media (min-width:760px){.fields{grid-template-columns:1fr 1fr}}
+/* Collecting */
+.collect{padding:120px 0;background:#101214;border-top:1px solid var(--line-soft);border-bottom:1px solid var(--line-soft)}.collect-grid{display:grid;grid-template-columns:1fr 1fr;gap:clamp(35px,9vw,130px);align-items:center}.collect-card{padding:28px;border:1px solid var(--line);background:linear-gradient(140deg,rgba(214,110,89,.13),transparent 58%)}.collect-card h2{font:400 clamp(2rem,3.8vw,3.8rem)/1.3 var(--serif);letter-spacing:.05em;margin:0}.collect-card p{color:var(--mist);font-size:14px;margin:20px 0 29px;max-width:34em}.collect-link{display:inline-flex;align-items:center;gap:12px;padding:14px 16px;background:var(--paper);color:var(--night);font:10px/1 var(--mono);letter-spacing:.14em;text-decoration:none;transition:background .2s}.collect-link:hover{background:var(--vermilion);color:var(--paper)}.collect-note{padding:25px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}.collect-note h3{margin:0;font:400 1.45rem/1.45 var(--serif);letter-spacing:.05em}.collect-note p{font-size:13px;color:var(--mist);margin:11px 0 0;max-width:31em}.collect-note .eyebrow{margin-bottom:12px}
 
-/* ---------- 行き先 ---------- */
-.vision{display:grid; gap:var(--s3)}
-.step{display:grid; grid-template-columns:3rem 1fr; gap:var(--s3); align-items:start}
-.step .n{
-  font-family:var(--display); font-size:1.6rem; color:var(--accent); line-height:1;
-  border-bottom:1px solid var(--line); padding-bottom:var(--s1);
-}
-.step h3{margin-bottom:.35rem}
-.step p{margin:0; font-size:14.5px}
+/* Connect */
+.connect{padding:130px 0 48px}.connect-grid{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:end}.socials{display:grid;grid-template-columns:repeat(3,1fr);border-top:1px solid var(--line);border-left:1px solid var(--line);margin-top:42px}.socials a{padding:15px 11px;border-right:1px solid var(--line);border-bottom:1px solid var(--line);font:10px/1.2 var(--mono);letter-spacing:.13em;text-decoration:none;transition:background .2s,color .2s}.socials a:hover{background:var(--paper);color:var(--night)}.contact-art{justify-self:end;width:min(100%,330px);opacity:.78}.contact-art img{aspect-ratio:4/3;object-fit:cover;filter:grayscale(.25)}
+footer{display:flex;justify-content:space-between;gap:20px;padding:26px 0;border-top:1px solid var(--line);font:9px/1.5 var(--mono);letter-spacing:.14em;color:var(--faint)}
 
-/* ---------- 投稿（X 埋め込み） ---------- */
-.posts{
-  margin-top:var(--s3); display:grid; gap:var(--s3);
-  grid-template-columns:repeat(auto-fill,minmax(300px,1fr)); align-items:start;
-}
-.posts .twitter-tweet{margin:0 !important}
-.fallback{
-  font-family:var(--mono); font-size:11.5px; letter-spacing:.12em; line-height:2.2;
-  color:var(--ink-3); margin:var(--s3) 0 0; padding:var(--s2);
-  border:1px solid var(--line); background:var(--panel); max-width:var(--measure);
-}
-.fallback a{color:var(--accent); text-decoration:none; border-bottom:1px solid var(--accent)}
-.more{
-  display:inline-flex; align-items:center; gap:.6em; margin-top:var(--s3);
-  font-family:var(--mono); font-size:12px; letter-spacing:.16em; color:var(--ink-2);
-  text-decoration:none; border-bottom:1px solid var(--line); padding:5px 0;
-}
-.more:hover{color:var(--accent); border-color:var(--accent)}
-.more svg{width:15px; height:15px; fill:currentColor}
-
-/* ---------- 連絡先 ---------- */
-.links{display:flex; flex-wrap:wrap; gap:var(--s2) var(--s3); margin-top:var(--s3)}
-.links a{
-  display:inline-flex; align-items:center; gap:.6em;
-  font-family:var(--mono); font-size:12px; letter-spacing:.16em; text-decoration:none;
-  border-bottom:1px solid var(--line); padding:5px 0; color:var(--ink-2);
-}
-.links a:hover{color:var(--accent); border-color:var(--accent)}
-.links svg{width:17px; height:17px; flex:none; fill:currentColor}
-.links svg.stroke{fill:none; stroke:currentColor; stroke-width:1.7; stroke-linecap:round}
-footer{
-  padding:var(--s4) 0 var(--s5); border-top:1px solid var(--line);
-  font-family:var(--mono); font-size:10.5px; letter-spacing:.2em; color:var(--ink-3);
-  display:flex; justify-content:space-between; gap:var(--s2); flex-wrap:wrap;
-}
-
-@media (max-width:720px){
-  :root{--rail:0px; --s6:5rem; --s5:3.5rem}
-  .rail{display:none}
-  .wrap{padding:0 1.35rem}
-}
+@media(max-width:850px){.hero-grid,.project-grid,.statement-grid,.journal-top,.collect-grid,.connect-grid{grid-template-columns:1fr}.hero-art{justify-self:start;width:min(100%,430px)}.scroll-note{display:none}.works-heading{display:block}.works-heading .lede{margin-top:18px}.work-grid{grid-template-columns:repeat(2,1fr)}.work{min-height:340px}.project{padding:90px 0}.statement{padding:110px 0}.statement-art{order:2}.statement-art img{width:min(100%,320px)}.journal-top{gap:24px}.x-layout{grid-template-columns:1fr}.x-aside{border-left:0;border-top:1px solid var(--line);padding:24px 0}.contact-art{justify-self:start}.connect-grid{gap:24px}}
+@media(max-width:520px){.shell{width:min(100% - 34px,1160px)}.site-head{height:64px}.store{font-size:9px}.hero{min-height:auto;padding:68px 0 86px}.hero h1{font-size:clamp(3rem,15vw,4.7rem)}.hero-copy{font-size:14px}.work-grid,.posts{grid-template-columns:1fr}.work{min-height:385px}.works,.journal{padding:90px 0}.socials{grid-template-columns:repeat(2,1fr)}footer{display:block}footer span+span{display:block;margin-top:8px}}
 </style>
 </head>
 <body>
+  <header class="site-head shell">
+    <a class="brand" href="#top" aria-label="KOHEI KONDO トップへ">KOHEI KONDO / ART PROJECT</a>
+    <a class="store" href="#collect">COLLECT WORKS ↗</a>
+  </header>
 
-<nav class="rail" aria-label="目次">
-  <span class="mark">2026</span>
-  <a href="#top">序</a>
-  <a href="#fields">領域</a>
-  <a href="#vision">行き先</a>
-  <a href="#posts">投稿</a>
-  <a href="#contact">連絡</a>
-  <span class="mark">KYOTO</span>
-</nav>
+  <main id="top">
+    <section class="hero shell" aria-labelledby="hero-title">
+      <div class="hero-grid">
+        <div>
+          <p class="eyebrow">THE KOHEI KONDO PROJECT / KYOTO, JAPAN</p>
+          <h1 id="hero-title">日本の美しさを、<br><em>世界の言葉へ。</em></h1>
+          <p class="hero-copy">京都の静けさ、余白、祈り。<br>書家・近藤晃平の作品を通して、日本の感覚を現代の暮らしへ届けるアートプロジェクトです。</p>
+          <div class="actions">
+            <a class="button" href="#works">作品を見る <span aria-hidden="true">↓</span></a>
+            <a class="button alt" href="#collect">作品を迎える <span aria-hidden="true">↓</span></a>
+          </div>
+        </div>
+        <figure class="hero-art">
+          <img src="assets/dream-preview-clean.png" alt="近藤晃平の書道作品「夢」" width="1122" height="1402">
+          <figcaption class="art-caption"><strong>夢 / DREAM</strong>Handwritten in Kyoto</figcaption>
+        </figure>
+      </div>
+      <p class="scroll-note">SCROLL TO EXPLORE ↓</p>
+    </section>
 
-<main>
-  <section class="hero wrap" id="top">
-    <div class="masthead">
-      <h1 class="name">近藤晃平</h1>
-      <p class="romaji">KOHEI KONDO</p>
-      <p class="kicker">WORKING SITE ／ 京都</p>
-    </div>
-    <p class="thesis">くらしの詰まりを、ひとつずつ解く。<br>そこで得た仕組みで、<em>日本の魅力を世界へ</em>運ぶ。</p>
-    <p class="status">
-      <span class="live"><i></i>稼働中</span>
-      <span><b>くらしの解決研究所</b>／任意売却・相続</span>
-      <span><b>たよれ場</b>／福祉・生活支援</span>
-      <span><b>書道</b></span>
-    </p>
-  </section>
+    <section class="project" aria-labelledby="project-title">
+      <div class="shell project-grid">
+        <p class="project-mark">ABOUT THE PROJECT<br>／ 近藤晃平について</p>
+        <div class="project-copy"><h2 id="project-title">一本の線に、<br>日本の時間を宿す。</h2><p>近藤晃平は、書を起点に、ことば・音・デジタルアートを横断する京都の表現者です。古くから受け継がれてきた筆と墨の美意識を、世界の誰かの日常に置ける形へ。KOHEI KONDO ART PROJECT は、その作品と思想を届けるための公式プラットフォームです。</p><div class="project-meta"><span>CONTEMPORARY CALLIGRAPHY</span><span>WORDS / MUSIC / DIGITAL ART</span><span>FROM KYOTO TO THE WORLD</span></div></div>
+      </div>
+    </section>
 
-  <section class="wrap" id="fields">
-    <p class="eyebrow">Fields ／ 領域</p>
-    <h2>別々に見えて、ぜんぶ「くらし」に繋がっている。</h2>
-    <div class="fields">
-      <div class="field">
-        <span class="no">01</span>
-        <h3>くらしの解決研究所</h3>
-        <p>任意売却と相続の現場。登記簿を読み、現地を歩き、住まいの行き詰まりを実際に動かす。案件は一元管理し、判断を属人化させない。</p>
+    <section class="works" id="works" aria-labelledby="works-title">
+      <div class="shell">
+        <div class="works-heading">
+          <div><p class="eyebrow">SELECTED WORKS / 作品</p><h2 class="section-title" id="works-title">Words<br>from Kyoto.</h2></div>
+          <p class="lede">筆の勢い、墨の濃淡、そして余白。京都で生まれた一瞬の線を、日常に置ける形へ。</p>
+        </div>
+        <div class="work-grid">
+          <a class="work" href="https://konzjapan.base.shop/items/all" target="_blank" rel="noopener"><img src="assets/dream-cover.jpg" alt="作品「夢」"><span class="work-no">01</span><p class="work-type">DIGITAL ART</p><h3>夢 / DREAM</h3><small>ONLINE STORE ↗</small></a>
+          <a class="work" href="#journal"><img src="assets/kiki-preview.jpg" alt="作品「喜氣」"><span class="work-no">02</span><p class="work-type">DIGITAL ART</p><h3>喜氣 / KIKI</h3><small>COMING SOON ↗</small></a>
+          <a class="work" href="#journal"><img src="assets/ichigo-ichie-preview.jpg" alt="作品「一期一会」"><span class="work-no">03</span><p class="work-type">DIGITAL ART</p><h3>一期一会</h3><small>COMING SOON ↗</small></a>
+          <a class="work" href="#journal"><img src="assets/sora-preview.jpg" alt="作品「空」"><span class="work-no">04</span><p class="work-type">DIGITAL ART</p><h3>空 / SORA</h3><small>COMING SOON ↗</small></a>
+        </div>
       </div>
-      <div class="field">
-        <span class="no">02</span>
-        <h3>たよれ場</h3>
-        <p>福祉と生活支援。困ったときに「まずここ」と言える場所をつくる。人が頼れる先を、増やす。</p>
-      </div>
-      <div class="field">
-        <span class="no">03</span>
-        <h3>書道</h3>
-        <p>一本の線に集中する時間。仕事の判断も、余白の取り方で決まる。</p>
-      </div>
-      <div class="field">
-        <span class="no">04</span>
-        <h3>発信</h3>
-        <p>つくったものを出す。京都から、日本の手触りを持ったまま、外へ。</p>
-      </div>
-    </div>
-  </section>
+    </section>
 
-  <section class="wrap" id="vision">
-    <p class="eyebrow">Direction ／ 行き先</p>
-    <h2>現場 → 仕組み → 全国 → 世界。順番は変えない。</h2>
-    <div class="vision">
-      <div class="step">
-        <span class="n">一</span>
-        <div><h3>現場で解く</h3><p>関西の任意売却・相続を、自分の足と手で回しきる。</p></div>
+    <section class="statement" aria-labelledby="story-title">
+      <div class="shell statement-grid">
+        <figure class="statement-art"><img src="assets/kiki-preview.jpg" alt="近藤晃平の書道作品「喜氣」"></figure>
+        <div>
+          <p class="eyebrow">ARTWORK STORY / 喜氣</p>
+          <blockquote id="story-title">喜びの氣が、<br>自分から周囲へ<br><em>広がっていく。</em></blockquote>
+          <p class="lede">「喜氣（きき）」は、祝い、祝福、生きる歓びを結んだ言葉です。見る人の内側にある軽やかな力が、やがて周囲へ広がっていくことを願っています。</p>
+        </div>
       </div>
-      <div class="step">
-        <span class="n">二</span>
-        <div><h3>仕組みに落とす</h3><p>報告・記録・地図・判断をひとつの流れにする。人が増えても同じ品質で動く形に。</p></div>
-      </div>
-      <div class="step">
-        <span class="n">三</span>
-        <div><h3>営業圏を広げる</h3><p>神戸・淡路から、東京・名古屋・福岡へ。チームで全国を持つ。</p></div>
-      </div>
-      <div class="step">
-        <span class="n">四</span>
-        <div><h3>世界へ運ぶ</h3><p>そこで生まれた余力を、日本の魅力を世界へ届けることに使う。</p></div>
-      </div>
-    </div>
-  </section>
+    </section>
 
-  <section class="wrap" id="posts">
-    <p class="eyebrow">Posts ／ X</p>
-    <h2>Xでの投稿は、そのままここに流しておく。</h2>
-    <p>京都のこと、書のこと、仕事のこと。</p>
-    <div class="posts" id="x-posts"></div>
-    <p class="fallback" id="x-fallback" hidden>
-      Xの投稿を読み込めませんでした。<br>
-      直接どうぞ → <a href="https://x.com/kohei_sun0127" target="_blank" rel="noopener">@kohei_sun0127</a>
-    </p>
-    <a class="more" href="https://x.com/kohei_sun0127" target="_blank" rel="noopener">
-      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18.9 1.6h3.5l-7.7 8.8 9 11.9h-7.1l-5.6-7.3-6.4 7.3H1.1l8.3-9.4L.7 1.6h7.3l5.2 6.9 5.7-6.9Zm-1.2 18.6h1.9L6.4 3.3H4.3l13.4 16.9Z"/></svg>
-      最新の投稿を見る
-    </a>
-  </section>
+    <section class="collect" id="collect" aria-labelledby="collect-title">
+      <div class="shell collect-grid">
+        <div class="collect-card"><p class="eyebrow">COLLECT THE WORKS</p><h2 id="collect-title">気に入った言葉を、<br>あなたの場所へ。</h2><p>デジタルアート、プリント、壁紙として作品を迎えられます。作品との出会いから、日々に置くまでをシンプルに。</p><a class="collect-link" href="https://konzjapan.base.shop/items/all" target="_blank" rel="noopener">ONLINE STORE を見る ↗</a></div>
+        <div class="collect-note"><p class="eyebrow">NEXT CHAPTER / NFT</p><h3>作品の来歴と価値を、<br>次のかたちへ。</h3><p>NFTコレクションは準備中です。デジタル上でも作品の背景と所有の物語を大切にできる、新しい発表の場を構想しています。</p></div>
+      </div>
+    </section>
 
-  <section class="wrap" id="contact">
-    <p class="eyebrow">Contact ／ 連絡</p>
-    <h2>仕事の話も、京都の話も。</h2>
-    <p>発信はこちら。返せるものから順に返します。</p>
-    <div class="links">
-      <a href="https://x.com/kohei_sun0127" target="_blank" rel="noopener" aria-label="X — kohei_sun0127">
-        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18.9 1.6h3.5l-7.7 8.8 9 11.9h-7.1l-5.6-7.3-6.4 7.3H1.1l8.3-9.4L.7 1.6h7.3l5.2 6.9 5.7-6.9Zm-1.2 18.6h1.9L6.4 3.3H4.3l13.4 16.9Z"/></svg>
-        kohei_sun0127</a>
-      <a href="https://www.instagram.com/kohei_sun0127" target="_blank" rel="noopener" aria-label="Instagram — kohei_sun0127">
-        <svg class="stroke" viewBox="0 0 24 24" aria-hidden="true"><rect x="3.2" y="3.2" width="17.6" height="17.6" rx="5"/><circle cx="12" cy="12" r="4.1"/><circle cx="17.4" cy="6.6" r=".2" style="fill:currentColor;stroke-width:1.8"/></svg>
-        kohei_sun0127</a>
-      <a href="https://note.com/kohei_sun0127" target="_blank" rel="noopener" aria-label="note — kohei_sun0127">
-        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3.4 3.2h17.2c.4 0 .7.3.7.7v16.2c0 .4-.3.7-.7.7H3.4a.7.7 0 0 1-.7-.7V3.9c0-.4.3-.7.7-.7Zm1.3 2v13.6h14.6V5.2H4.7Z"/><path d="M7.2 15.9V8.4h1.9v.9c.5-.7 1.3-1.1 2.3-1.1 1.7 0 2.8 1.1 2.8 2.9v4.8h-2v-4.4c0-1-.5-1.6-1.4-1.6-.9 0-1.6.7-1.6 1.8v4.2h-2Z"/></svg>
-        note</a>
-      <a href="https://www.youtube.com/@konkon_kyoto" target="_blank" rel="noopener" aria-label="YouTube — konkon_kyoto">
-        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M23.2 7.2a3 3 0 0 0-2.1-2.1C19.3 4.6 12 4.6 12 4.6s-7.3 0-9.1.5A3 3 0 0 0 .8 7.2C.3 9 .3 12 .3 12s0 3 .5 4.8a3 3 0 0 0 2.1 2.1c1.8.5 9.1.5 9.1.5s7.3 0 9.1-.5a3 3 0 0 0 2.1-2.1c.5-1.8.5-4.8.5-4.8s0-3-.5-4.8ZM9.7 15.4V8.6L15.6 12l-5.9 3.4Z"/></svg>
-        konkon_kyoto</a>
-    </div>
-    <footer>
-      <span>KOHEI KONDO ／ WORKING SITE</span>
-      <span>KYOTO, JAPAN</span>
-    </footer>
-  </section>
-</main>
+    <section class="journal shell" id="journal" aria-labelledby="journal-title">
+      <div class="journal-top">
+        <div><p class="eyebrow">JOURNAL / X</p><h2 class="section-title" id="journal-title">制作の背景と、<br>京都の日々。</h2></div>
+        <p class="lede">作品に込めた言葉や、制作の途中に出会った景色。新しい発信は、こちらから。</p>
+      </div>
+      <div class="x-layout">
+        <div class="posts" id="x-posts" aria-live="polite"></div>
+        <aside class="x-aside"><p>近藤晃平のいちばん新しい言葉と、作品の背景へ。Xでは、京都からの小さな発見も記録しています。</p><a class="text-link" href="https://x.com/kohei_sun0127" target="_blank" rel="noopener">@kohei_sun0127 を開く ↗</a></aside>
+      </div>
+      <p class="fallback" id="x-fallback" hidden>Xの投稿を読み込めませんでした。<a href="https://x.com/kohei_sun0127" target="_blank" rel="noopener">@kohei_sun0127</a> をご覧ください。</p>
+    </section>
+
+    <section class="connect shell" aria-labelledby="connect-title">
+      <div class="connect-grid"><div><p class="eyebrow">FOLLOW THE PROJECT</p><h2 class="section-title" id="connect-title">次の作品との<br>出会いを、ここから。</h2><p class="lede">新作、展示、制作の背景。KOHEI KONDO ART PROJECT の最新情報は、各SNSからお届けします。</p><div class="socials"><a href="https://www.instagram.com/kohei_sun0127/" target="_blank" rel="noopener">INSTAGRAM ↗</a><a href="https://x.com/kohei_sun0127" target="_blank" rel="noopener">X ↗</a><a href="https://www.youtube.com/@konkon_kyoto" target="_blank" rel="noopener">YOUTUBE ↗</a><a href="https://note.com/kohei_sun0127" target="_blank" rel="noopener">NOTE ↗</a><a href="https://www.tiktok.com/@kohei_kyoto" target="_blank" rel="noopener">TIKTOK ↗</a><a href="https://konzjapan.base.shop/items/all" target="_blank" rel="noopener">ONLINE STORE ↗</a></div></div><figure class="contact-art"><img src="assets/ichigo-ichie-preview.jpg" alt="近藤晃平の書道作品「一期一会」"></figure></div>
+      <footer><span>近藤 晃平 ／ KOHEI KONDO</span><span>© 2026 KOHEI KONDO &nbsp; KYOTO, JAPAN</span></footer>
+    </section>
+  </main>
 
 <script>
-/* ============================================================
-   Xの投稿
-   ・POSTS に投稿URLを並べるだけ。上から順にカードで表示されます
-   ・増やすときは行を足す／消すときは行を消す
-   ※ プロフィールのタイムライン埋め込みはX側が既に中身を返しません。
-     そのため単体ポストの埋め込みを使っています
-   ※ 表示には https の公開URLが必要（手元の file:// では出ません）
-   ※ 動画付きの投稿はX側が埋め込みを返さないことがあります
-      （例: /status/1874011863224377760 は表示できず）
-   ============================================================ */
+/* Xの投稿は、この配列にURLを足すだけで増やせます。 */
 const POSTS = [
   "https://x.com/kohei_sun0127/status/1947951742907449491",
   "https://x.com/kohei_sun0127/status/1837700492887290123"
 ];
-
-(function xEmbed(){
+(function(){
   const box = document.getElementById('x-posts');
+  const fallback = document.getElementById('x-fallback');
   if (!box || !POSTS.length) return;
-  const dark = document.documentElement.dataset.theme === 'dark'
-    || (document.documentElement.dataset.theme !== 'light'
-        && window.matchMedia('(prefers-color-scheme:dark)').matches);
-
-  function giveUp(){ document.getElementById('x-fallback').hidden = false; }
-
-  const s = document.createElement('script');
-  s.src = 'https://platform.twitter.com/widgets.js';
-  s.async = true; s.charset = 'utf-8';
-  s.onload = function(){
-    /* createTweet は描画できなかったとき undefined を返す。
-       その結果だけでカードの生死を判定する（タイマーで判定しない） */
-    const jobs = POSTS.map(function(url){
+  const script = document.createElement('script');
+  script.src = 'https://platform.twitter.com/widgets.js'; script.async = true; script.charset = 'utf-8';
+  script.onload = function(){
+    Promise.all(POSTS.map(function(url){
       const id = (url.match(/status\/(\d+)/) || [])[1];
       if (!id) return Promise.resolve();
-      const slot = document.createElement('div');
-      box.appendChild(slot);
-      return window.twttr.widgets.createTweet(id, slot, {
-        dnt: true, lang: 'ja', align: 'left', theme: dark ? 'dark' : 'light'
-      }).then(function(el){ if (!el) slot.remove(); });
-    });
-    Promise.all(jobs).then(function(){
-      if (!box.children.length) giveUp();
-    });
+      const slot = document.createElement('div'); box.appendChild(slot);
+      return window.twttr.widgets.createTweet(id, slot, {dnt:true,lang:'ja',theme:'dark',align:'left'}).then(function(node){if(!node) slot.remove()});
+    })).then(function(){if(!box.children.length) fallback.hidden=false});
   };
-  s.onerror = giveUp;
-  document.head.appendChild(s);
-})();
-
-/* ---------- 目次の現在地を示す（動きではなく表示の切替） ---------- */
-(function current(){
-  const links = Array.prototype.slice.call(document.querySelectorAll('.rail a'));
-  const io = new IntersectionObserver(function(es){
-    es.forEach(function(e){
-      if(!e.isIntersecting) return;
-      links.forEach(function(a){
-        a.setAttribute('aria-current', a.getAttribute('href') === '#' + e.target.id ? 'true' : 'false');
-      });
-    });
-  },{ rootMargin:'-45% 0px -50% 0px' });
-  document.querySelectorAll('main section').forEach(function(s){ io.observe(s); });
+  script.onerror = function(){fallback.hidden=false};
+  document.head.appendChild(script);
 })();
 </script>
 </body>

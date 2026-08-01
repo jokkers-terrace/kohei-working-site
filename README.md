@@ -1,20 +1,27 @@
-# 近藤晃平 ｜ WORKING SITE
+# KOHEI KONDO ｜ ART PROJECT（公式サイト）
 
 公開URL: https://jokkers-terrace.github.io/kohei-working-site/
 
+**このリポジトリがサイトの正本です。** ChatGPT・Cortex・Claude Code・手元、どこから直す場合も
+必ずこのリポジトリを経由します。ここ以外で作ったサイトは正本になりません。
+
 ## 構成
 
-`index.html` の1枚だけ。CSS・JavaScript も全部この中に入っています。
+```
+index.html   サイト本体（HTML・CSS・JavaScript を全部この1枚に入れています）
+assets/      作品画像・OG画像
+```
+
 外部ファイルの読み込みはありません（Xの埋め込みスクリプトのみ例外）。
 
 | 直したいもの | 場所 |
 | --- | --- |
-| 文章・セクション | `<main>` の中 |
-| Xに載せる投稿 | いちばん下の `POSTS` 配列（投稿URLを並べるだけ） |
-| 色・書体・余白 | 先頭の `:root` の変数 |
-| 右端の目次 | `<nav class="rail">` |
+| 文章・セクション | `index.html` の `<main>` の中 |
+| Xに載せる投稿 | `index.html` いちばん下の `POSTS` 配列（投稿URLを並べるだけ） |
+| 色・書体・余白 | `index.html` 先頭の `:root` の変数 |
+| 作品画像 | `assets/` に置いて `index.html` から参照 |
 
-セクションは 序（冒頭）／領域／行き先／投稿／連絡 の5つ。
+セクションは 冒頭／プロジェクト紹介／作品／作品ストーリー／作品を迎える／投稿／連絡 の7つ。
 アニメーションは使っていません。
 
 ## 公開のしかた
@@ -22,14 +29,23 @@
 `main` ブランチに push すると、GitHub Pages が自動で反映します（1〜3分）。
 
 ```bash
-git add -A && git commit -m "更新" && git push
+cd ~/Desktop/kohei-working-site && git pull && git add -A && git commit -m "更新" && git push
 ```
 
-## 編集するときの注意
+## 編集するときのルール（AI・人間 共通）
 
-- **ChatGPT・Claude・手元、どこから直す場合も、始める前に必ず `git pull` すること。**
-  複数の場所で同じ `index.html` を書き換えると、あとから push した側が衝突します。
-- ChatGPTで書き換えた場合は、出てきたHTMLで `index.html` を丸ごと置き換えてから push します。
+1. **始める前に必ず `git pull`。** 複数の場所で同じ `index.html` を書き換えると、
+   あとから push した側が衝突します。
+2. **終わったら必ず push。** push していない変更は、他のツールからは存在しません。
+3. ChatGPTなどで書き換えた場合は、出てきたHTMLで `index.html` を丸ごと置き換えてから push します。
+4. 画像は `assets/` に入れて必ずコミットする。手元にあるだけでは公開されません。
+
+## 作品画像について
+
+- 画像に文字（タイトル帯・透かし・署名）を焼き込まないこと。
+  作品名などの文字はすべて `index.html` 側で載せます。
+- 焼き込むと他の作品と統一感がなくなり、文字化け（□）も起こります。
+- 紙色は `#f6f5f0` 前後、墨のみのシンプルな構図で揃えています。
 
 ## Xの埋め込みについて（変更前に読む）
 
