@@ -196,15 +196,24 @@ p strong{color:var(--ink); font-weight:600}
 .step p{margin:0; font-size:14.5px}
 
 /* ---------- 投稿（X 埋め込み） ---------- */
-.embed{
-  margin-top:var(--s3); border:1px solid var(--line); background:var(--panel);
-  padding:var(--s2); min-height:220px; max-width:560px;
+.posts{
+  margin-top:var(--s3); display:grid; gap:var(--s3);
+  grid-template-columns:repeat(auto-fill,minmax(300px,1fr)); align-items:start;
 }
-.embed .fallback{
+.posts .twitter-tweet{margin:0 !important}
+.fallback{
   font-family:var(--mono); font-size:11.5px; letter-spacing:.12em; line-height:2.2;
-  color:var(--ink-3); margin:0; padding:var(--s2);
+  color:var(--ink-3); margin:var(--s3) 0 0; padding:var(--s2);
+  border:1px solid var(--line); background:var(--panel); max-width:var(--measure);
 }
-.embed .fallback a{color:var(--accent); text-decoration:none; border-bottom:1px solid var(--accent)}
+.fallback a{color:var(--accent); text-decoration:none; border-bottom:1px solid var(--accent)}
+.more{
+  display:inline-flex; align-items:center; gap:.6em; margin-top:var(--s3);
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em; color:var(--ink-2);
+  text-decoration:none; border-bottom:1px solid var(--line); padding:5px 0; transition:.3s;
+}
+.more:hover{color:var(--accent); border-color:var(--accent)}
+.more svg{width:15px; height:15px; fill:currentColor}
 
 /* ---------- 連絡先 ---------- */
 .links{display:flex; flex-wrap:wrap; gap:var(--s2) var(--s3); margin-top:var(--s3)}
@@ -332,17 +341,16 @@ footer{
   <section class="wrap" id="posts">
     <p class="eyebrow reveal">Posts ／ X</p>
     <h2 class="reveal d1">Xでの投稿は、そのままここに流しておく。</h2>
-    <p class="reveal d2">京都のこと、書のこと、仕事のこと。更新すると、このサイトにも反映されます。</p>
-    <div class="embed reveal d3" id="x-embed">
-      <a class="twitter-timeline" data-height="560" data-dnt="true"
-         data-chrome="noheader nofooter transparent"
-         href="https://twitter.com/kohei_sun0127?ref_src=twsrc%5Etfw">Posts by @kohei_sun0127</a>
-      <p class="fallback" id="x-fallback" hidden>
-        Xの投稿は、独自ドメイン（https）に置くとこの枠にそのまま表示されます。<br>
-        いまは直接どうぞ →
-        <a href="https://x.com/kohei_sun0127" target="_blank" rel="noopener">@kohei_sun0127</a>
-      </p>
-    </div>
+    <p class="reveal d2">京都のこと、書のこと、仕事のこと。</p>
+    <div class="posts reveal d3" id="x-posts"></div>
+    <p class="fallback" id="x-fallback" hidden>
+      Xの投稿を読み込めませんでした。<br>
+      直接どうぞ → <a href="https://x.com/kohei_sun0127" target="_blank" rel="noopener">@kohei_sun0127</a>
+    </p>
+    <a class="more" href="https://x.com/kohei_sun0127" target="_blank" rel="noopener">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18.9 1.6h3.5l-7.7 8.8 9 11.9h-7.1l-5.6-7.3-6.4 7.3H1.1l8.3-9.4L.7 1.6h7.3l5.2 6.9 5.7-6.9Zm-1.2 18.6h1.9L6.4 3.3H4.3l13.4 16.9Z"/></svg>
+      最新の投稿を見る
+    </a>
   </section>
 
   <section class="wrap" id="contact">
@@ -397,47 +405,47 @@ const JOURNAL = [
 
 /* ============================================================
    Xの投稿を出す
-   ・PINNED に投稿URLを入れると、その投稿を上に固定表示
-   ・下は @kohei_sun0127 の最新投稿（自動更新）
-   ※ 埋め込みは x のスクリプトを読むため、file:// ではなく
-     公開ホスティング（Vercel等）で確実に表示されます
+   ・POSTS に投稿URLを並べるだけ。上から順にカード表示されます
+   ・増やすときは行を足す／消すときは行を消す
+   ※ プロフィールのタイムライン埋め込みはX側が既に返さないため、
+     単体ポストの埋め込みで表示しています
+   ※ 表示には https の公開URLが必要（file:// では出ません）
    ============================================================ */
-const PINNED = [
-  // "https://x.com/kohei_sun0127/status/0000000000000000000",
+const POSTS = [
+  "https://x.com/kohei_sun0127/status/1947951742907449491",
+  "https://x.com/kohei_sun0127/status/1874011863224377760",
+  "https://x.com/kohei_sun0127/status/1837700492887290123"
 ];
 
 (function xEmbed(){
-  const box = document.getElementById('x-embed');
+  const box = document.getElementById('x-posts');
+  if (!box || !POSTS.length) return;
   const dark = document.documentElement.dataset.theme === 'dark'
     || (document.documentElement.dataset.theme !== 'light'
         && window.matchMedia('(prefers-color-scheme:dark)').matches);
 
-  /* 固定表示の投稿 */
-  PINNED.forEach(function(url){
-    const q = document.createElement('blockquote');
-    q.className = 'twitter-tweet';
-    q.setAttribute('data-dnt','true');
-    if (dark) q.setAttribute('data-theme','dark');
-    q.innerHTML = '<a href="' + url + '"></a>';
-    box.insertBefore(q, box.firstElementChild);
-  });
-
-  /* 最新投稿のテーマを合わせる */
-  const tl = box.querySelector('.twitter-timeline');
-  if (tl && dark) tl.setAttribute('data-theme','dark');
-
-  /* 読み込めなかったとき（file:// や埋め込み制限）の逃げ道 */
-  setTimeout(function(){
-    const f = box.querySelector('iframe');
-    if (!f || f.offsetHeight < 140) {
-      document.getElementById('x-fallback').hidden = false;
-    }
-  }, 6000);
-
   const s = document.createElement('script');
   s.src = 'https://platform.twitter.com/widgets.js';
   s.async = true; s.charset = 'utf-8';
+  s.onload = function(){
+    POSTS.forEach(function(url){
+      const id = (url.match(/status\/(\d+)/) || [])[1];
+      if (!id) return;
+      const slot = document.createElement('div');
+      box.appendChild(slot);
+      window.twttr.widgets.createTweet(id, slot, {
+        dnt: true, lang: 'ja', align: 'left', theme: dark ? 'dark' : 'light'
+      });
+    });
+  };
   document.head.appendChild(s);
+
+  /* 読み込めなかったときの逃げ道 */
+  setTimeout(function(){
+    if (!box.querySelector('iframe')) {
+      document.getElementById('x-fallback').hidden = false;
+    }
+  }, 8000);
 })();
 
 /* ---------- 現れ方：スクロールで立ち上がる ---------- */
