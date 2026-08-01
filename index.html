@@ -413,8 +413,9 @@ const JOURNAL = [
    ============================================================ */
 const POSTS = [
   "https://x.com/kohei_sun0127/status/1947951742907449491",
-  "https://x.com/kohei_sun0127/status/1874011863224377760",
   "https://x.com/kohei_sun0127/status/1837700492887290123"
+  /* 動画付きの投稿はX側が埋め込みを返さないことがあります
+     （例: /status/1874011863224377760 は高さ0で表示されず） */
 ];
 
 (function xEmbed(){
@@ -440,12 +441,16 @@ const POSTS = [
   };
   document.head.appendChild(s);
 
-  /* 読み込めなかったときの逃げ道 */
+  /* 出せなかったカードは畳む。全滅なら逃げ道を出す */
   setTimeout(function(){
-    if (!box.querySelector('iframe')) {
+    Array.prototype.forEach.call(box.children, function(slot){
+      const f = slot.querySelector('iframe');
+      if (!f || f.offsetHeight < 60) slot.hidden = true;
+    });
+    if (!box.querySelector('div:not([hidden]) iframe')) {
       document.getElementById('x-fallback').hidden = false;
     }
-  }, 8000);
+  }, 9000);
 })();
 
 /* ---------- 現れ方：スクロールで立ち上がる ---------- */
